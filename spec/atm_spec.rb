@@ -2,7 +2,7 @@ require './lib/atm.rb'
 require 'date'
 
 describe Atm do
-    let(:account) {instance_double('Account', pin_code: '1234', exp_date: '04/17') }
+    let(:account) {instance_double('Account', pin_code: '1234', exp_date: '04/20') }
 
     before do
         allow(account).to receive(:balance).and_return(100)
@@ -18,10 +18,10 @@ describe Atm do
         expect(subject.funds).to eq 950
     end
 
-    it 'allow withdraw if account has enough balance.' do
-         expected_output = { status: true, message: 'success', date: Date.today, amount: 45}
-         expect(subject.withdraw(45, '1234', account)).to eq expected_output
-    end
+     it 'allow withdraw if account has enough balance.' do
+        expected_output = { status: true, message: 'success', date: Date.today, amount: 45}
+        expect(subject.withdraw(45, '1234', account)).to eq expected_output
+   end
 
     it 'rejects withdraw if account has insufficient funds.' do
         expected_output = { status: false, message: 'insufficient funds in account', date: Date.today}
