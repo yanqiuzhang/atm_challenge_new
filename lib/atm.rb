@@ -72,6 +72,6 @@ class Atm
                 bills << bill
             end
         end
-        bills
+         bills
     end
 end
