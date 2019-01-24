@@ -2,7 +2,7 @@ require './lib/atm.rb'
 require 'date'
 
 describe Atm do
-    let(:account) {instance_double('Account', pin_code: '1234', exp_date: '04/17', account_status: :active) }
+    let(:account) {instance_double('Account', pin_code: '1234', exp_date: '04/20', account_status: :active) }
 
     before do
         allow(account).to receive(:balance).and_return(100)
@@ -18,10 +18,10 @@ describe Atm do
         expect(subject.funds).to eq 950
     end
 
-    it 'allow withdraw if account has enough balance.' do
-         expected_output = { status: true, message: 'success', date: Date.today, amount: 45}
-         expect(subject.withdraw(45, '1234', account)).to eq expected_output
-    end
+     it 'allow withdraw if account has enough balance.' do
+        expected_output = { status: true, message: 'success', date: Date.today, amount: 45, bills: [20, 20, 5]}
+        expect(subject.withdraw(45, '1234', account, add_bills(amount))).to eq expected_output
+   end
 
     it 'rejects withdraw if account has insufficient funds.' do
         expected_output = { status: false, message: 'insufficient funds in account', date: Date.today}
@@ -45,10 +45,20 @@ describe Atm do
         expect(subject.withdraw(6, '1234', account)).to eq expected_output
     end
 
-    it 'reject withdraw if account is disabled' do
+    it 'reject withdraw if an account is disabled' do
         allow(account).to receive(:account_status).and_return(:disabled)
-        expected_output = { status: false, message: 'account is disabled', date: Date.today }
+        expected_output = {status: false, message: 'account is disabled', date: Date.today }
         expect(subject.withdraw(15, '1234', account)).to eq expected_output
     end
+    it 'allow withdraw if atm has enough balance.' do
+        expected_output = {
+            status: true,
+            message: 'success',
+            date: Date.today,
+            amount: 45,
+            bills: [20, 20, 5]}
+
+        expect(subject.withdraw(45, '1234', account, add_bills(amount))).to eq expected_output
+
 
 end
