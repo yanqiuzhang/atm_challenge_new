@@ -7,7 +7,7 @@ class Atm
         @funds = 1000
     end
 
-    def withdraw(amount, pin_code, account, account_status)
+    def withdraw(amount, pin_code, account)
         case
         when insufficient_funds_in_account?(amount, account)
             { status: false, message: 'insufficient funds in account', date: Date.today }
@@ -46,9 +46,13 @@ class Atm
 
     def card_expired?(exp_date)
         Date.strptime(exp_date, '%m/%y') < Date.today
+    end
 
     def account_status?(account_status)
-        account_status != active
+        if(account_status == :disabled)
+            return true
+        else
+            return false
     end
-end
+    end
 end
