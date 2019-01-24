@@ -46,6 +46,7 @@ class Atm
     def card_expired?(exp_date)
         Date.strptime(exp_date, '%m/%y') < Date.today
     end
+
     def account_status_disabled?(account_status)
         if(account_status == :disabled)
             return true
@@ -61,7 +62,7 @@ class Atm
             return false
         end
     end
-
+    
     def add_bills(amount)
         denominations = [20, 10, 5]
         bills = []
