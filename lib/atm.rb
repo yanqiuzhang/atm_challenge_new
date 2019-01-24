@@ -32,7 +32,7 @@ class Atm
     def perform_transaction (amount, account)
         @funds -= amount
         account.balance = account.balance - amount 
-        { status: true, message: 'success', date: Date.today, amount: amount, bills: add_bills(amount) }
+        { status: true, message: 'it is successful', date: Date.today, amount: amount, bills: add_bills(amount)}
     end
 
     def insufficient_funds_in_atm?(amount)
@@ -72,6 +72,6 @@ class Atm
                 bills << bill
             end
         end
-        bills
+         bills
     end
 end
