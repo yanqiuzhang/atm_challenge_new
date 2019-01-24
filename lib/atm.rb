@@ -2,7 +2,6 @@ require 'date'
 
 class Atm
     attr_accessor :funds
-
     def initialize
         @funds = 1000
     end
@@ -17,6 +16,8 @@ class Atm
             { status: false, message: 'wrong pin', date: Date.today}
         when card_expired?(account.exp_date)
             { status: false, message: 'card expired', date: Date.today}
+        when account_status_disabled?(account.account_status)
+            {status: false, message: 'account is disabled', date: Date.today }
         else 
             perform_transaction(amount, account)
         end
@@ -44,6 +45,13 @@ class Atm
 
     def card_expired?(exp_date)
         Date.strptime(exp_date, '%m/%y') < Date.today
+    end
+    def account_status_disabled?(account_status)
+        if(account_status == :disabled)
+            return true
+        else
+            return false
+        end
     end
 
 end
