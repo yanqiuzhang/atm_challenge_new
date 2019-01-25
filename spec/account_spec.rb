@@ -16,6 +16,4 @@ describe Account do
         expect(subject.account_status).to eq :active
     end
     
-   
-
 end
