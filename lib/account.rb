@@ -18,6 +18,7 @@ class Account
     end
 
     private
+    
     def set_owner(obj)
         obj == nil ? missing_owner : @owner = obj
     end
