@@ -19,6 +19,11 @@ describe Account do
         expect(subject.account_status).to eq :active
     end
 
+    it 'is expected to have deactivate status' do
+        subject.deactivate
+        expect(subject.account_status).to eq :deactivated
+     end
+
     it 'is expected to have an owner' do 
         expect(subject.owner).to eq person
     end 
